@@ -1,0 +1,13 @@
+hmm-2/train.log:Reestimation complete - average log prob per frame = -7.732544e+01
+hmm-3/train_1.log:Reestimation complete - average log prob per frame = -7.725691e+01
+hmm-3/train_2.log:Reestimation complete - average log prob per frame = -7.652781e+01
+hmm-3/train_3.log:Reestimation complete - average log prob per frame = -7.589995e+01
+hmm-4/train_1.log:Reestimation complete - average log prob per frame = -7.579887e+01
+hmm-4/train_2.log:Reestimation complete - average log prob per frame = -7.499374e+01
+hmm-4/train_3.log:Reestimation complete - average log prob per frame = -7.453358e+01
+hmm-5/train_1.log:Reestimation complete - average log prob per frame = -7.450794e+01
+hmm-5/train_2.log:Reestimation complete - average log prob per frame = -7.374001e+01
+hmm-5/train_3.log:Reestimation complete - average log prob per frame = -7.335786e+01
+hmm-6/train_1.log:Reestimation complete - average log prob per frame = -7.341865e+01
+hmm-6/train_2.log:Reestimation complete - average log prob per frame = -7.266691e+01
+hmm-6/train_3.log:Reestimation complete - average log prob per frame = -7.231442e+01

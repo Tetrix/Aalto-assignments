@@ -1,0 +1,509 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in, paperwidth=8.5in, paperheight=11in]{geometry}
+\usepackage{amsmath}
+\usepackage[document]{ragged2e}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{interval}
+\usepackage[none]{hyphenat}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\begin{document}
+
+\section{Detail question}
+\subsection{Phoneme}
+The base unit of language and refers to the smallest unit which distinguishes between meanings.
+
+\subsection{Phonation}
+refers to the physiological , physical, and neurological processes in the production of a single speech sound, whereby it is a physiological base unit.
+
+\subsection{Phone}
+a specific sound irrespective of its grammatical position or meaning. It is thus aperceptual and acoustic base unit.
+
+\subsection{Vocal tract}
+the cavity in human beings and in animals where the sound produced at the sound source is filtered. (from Wikipedia)
+
+\subsection{Formant}
+The resonances of the vocal tract are known as formants.
+\\
+They are visible as peaks in their spectral envelopes
+
+\subsection{Coarticulation}
+refers to a situation in which a conceptually isolated speech sound is influenced by, and becomes more like, a preceding or following speech sound.
+
+\subsection{Onset}
+A speech onset is the event when a phonation begins.
+
+\subsection{Offset}
+A speech offset is the ending event of a phonation.
+
+\subsection{Intonation}
+intonation is variation in spoken pitch when used. (from Wikipedia)
+
+\subsection{Perceptual modelling}
+"I don't know" :D
+
+\subsection{Source modelling}
+The purpose of source modelling is to use information available
+from before to make processing more efficient and improve
+quality.
+
+\subsection{Source-filter model}
+The source-filter model is a speech source model. \\
+It is loosely based on physiology. \\
+Modelling those characteristic features which have been found to
+be important for perceptual quality.
+
+
+\subsection{Objective Evaluation Methods}
+Faster and cheaper than the subjective models. \\
+You can run the tests a lot faster. \\
+If you run an objective test twice, it will give the same result. \\~\\
+Objective evaluation methods: \\
+\begin{itemize}
+	\item{POLQA for speech and telecommunications}
+	\item{PEAQ if music is involved}
+	\item{PESQ mostly replaced by POLQA}
+\end{itemize}
+
+\subsection{Subjective Evaluation Methods}
+The aims of subjective evaluation methods include: \\
+\begin{itemize}
+	\item{to quantify preferences of people}
+	\item{in a setting which reflects actual usage scenarios accurately}
+	\item{in a structured way such that the test is reproducible (trustworthy)}
+	\item{that it gives accurate results (useful)}
+	\item{minimize costs}
+\end{itemize}
+
+Subjective evaluation methods: \\
+\begin{itemize}
+	\item{P.800 for naïve listeners}
+	\item{P.805 like P.800 but including conversation}
+	\item{P.835 like P.800 but including noise evaluation}
+	\item{MUSHRA for experts (∼ 10 listeners)}
+\end{itemize}
+
+
+\subsection{Fundamental frequency and pitch}
+The lowest frequency of a periodic waveform. In music, the fundamental frequency is also known as a pitch. (from Wikipedia)
+
+\subsection{Concatenative synthesis}
+Pre-recorded segments of speech are fused into a sequence to obtain the desired word.
+
+\subsection{Synthesis by speech production}
+Formant synthesis or physical modelling synthesis where mechanisms and acoustics of the speech production system is modelled to simulate a real
+speaker.
+
+\subsection{Features}
+Characteristics which differentiate between speech and noise are called features.
+
+Speech features vary rapidly and frequently.
+\\
+Some useful features:
+\begin{itemize}
+	\item{Signal energy}
+	\item{Estimators for spectral tilt}
+\end{itemize}
+
+
+
+\section{Basic qustions}
+\subsection{Explain how humans produce speech (what physiological processes are involved 3p, what acoustic effect do these processes have 1p and what type of phonations are these related to 2p)}
+
+\begin{itemize}
+	\item{A phonation begins on a neurological level with the decision or
+		intent to produce speech, whereby the brain sends a message to
+		the physiological organs to produce speech.}
+	\item{The physiological process begins in the lungs, which contract,
+		increasing the air pressure such that air flows out.}
+	\item{The acoustical signal is then produced with two mostly
+		independent processes:
+		\begin{itemize}
+		\item{\textbf{voiced} phones are produced by tightening the vocal 			folds to an appropriate tension, such that they begin to 					oscillate in the air flow. The varying airflow causes
+			a pressure waveform, that is, a sound.}
+		\item{\textbf{unvoiced} phones are produced by constricting some 				part of the vocal tract such that airflow is either prevented 			or constricted, causing a turbulent mode of airflow and 					pressure waveform.}
+		\end{itemize}
+	}
+\end{itemize}		
+
+\subsection{Describe the source filter model of speech production (model description 3p, connection to speech production 2p, application in speech processing 1p)}	
+We use information available from before to make processing more efficient and improve quality.
+
+Speech signals originate from the speech production organs.
+
+Modelling the speech production system can be used to improve
+speech processing methods.
+
+An accurate physiological model is usually not necessary– some
+very simple approximations can already give most of the benefit.
+
+The source-filter model is one of the most famous source models
+in speech processing.
+
+In effect, the source-filter model captures following spectral
+features:
+\begin{itemize}
+	\item{Envelope shape, or the macro-shape of the spectrum, modelled
+		by the linear predictor}
+	\item{Fundamental frequency, or the comb-filter shape under the
+		envelope, modelled by the fundamental frequency model}
+	\item{Harmonics-to-noise ratio (HNR) and overall energy, modelled by
+		the gains of the pitch and noise parts}
+	
+\end{itemize}
+		
+It is used in speech synthesis and speech analysis and is related to the linear prediction.
+
+\subsection{Describe the types of information a speech signal contains}
+Just a guess:
+\\
+It contains the fundamental frequency, sampling rate...
+
+
+\section{Algorithmic questions}
+
+\subsection{Linear prediction}
+Aims to predict the next sample $\epsilon_n$
+\\~\\
+$ \hat{\epsilon_n} := \sum_{k=1}^M\alpha_k\epsilon_{n-k} $
+where $\alpha_k$ are weights.
+\\~\\
+To find the best prediction we need to find the best $\alpha_k$.
+\\~\\
+To achieve this we use minimum mean square error:
+\\~\\
+$ min_{a_k}E[|\epsilon_n - \hat{\epsilon_n}|^2] $
+\\~\\
+Linear prediction is a model of the short-term temporal structure
+of speech.
+
+Equivalently, it is a model of the spectral envelope.
+
+The most important use of linear prediction is coding for
+transmission applications (Linear predictive coding).
+
+Parameters of the predictor can be calculated with complexity
+$O(M^2)$ from the autocovariance, where M is the model order (typically M is in the range 10 to 20).
+
+
+\subsection{Spectral subtraction}
+It is a noise attenuation method.
+\\~\\
+Our signal model is $ X(z) = S(z) + V(z) $
+\\~\\
+Given the noise estimate $ |\hat{V}(z)|^2 $ and the observation $ X(z) $,
+our tank is to estimate speech signal $ S(z) $.
+\\
+The equation for spectral subtraction is:
+$$ \hat{S}(z) = X(z) \sqrt{\frac{|X(z)|^2 - |\hat{V}(z)|^2}{|X(z)|^2}} $$
+\newpage
+\subsection{Beamforming}
+Beamforming refers to methods which use spatial information to
+extract a specific source from a sound scene.
+
+It uses time-differences between microphones
+to obtain a better estimate of the desired signal when the source
+location is known.
+
+\begin{itemize}
+	\item{If microphones are at different distances from a source, then 			the sound will arrive at different times to to microphones.}
+	\item{Delaying microphone signals appropriately will make the desired
+		source have the same phase in all channels, while other sources 			are (hopefully) out of phase.}
+	\item{We can add the delayed sensors whereby in-phase components
+		add up and out-of-phase components attenuate each other.}
+\end{itemize}
+
+Types of beamforming:
+\begin{itemize}
+	\item{Delay-and-sum}
+	\item{MVDR}
+\end{itemize}
+
+
+\subsection{Concatenative synthesis}
+In concatenative synthesis, segments of speech recordings are
+copy-pasted to form the desired utterances. It gives best quality,
+but requires a lot of work and resources.
+
+Bassic approach:
+
+\begin{itemize}
+	\item{Collect a database of speech segments with different phonemes.}
+	\item{Concatenate segments to obtain desired word.}
+	\item{It is then necessary to overlap-add subsequent segments.}
+\end{itemize}
+
+The best quality is achieved with triphones.
+\\
+Large portion of those triphones rarely occur so they are not used.
+\\
+We can reduce the set with a language model.
+\\~\\
+Drawbacks of this approach:
+\begin{itemize}
+	\item{Someone has to sit down and speak the triphones}
+	\item{It takes a long time}
+	\item{The pitch also need to be reproduced}
+\end{itemize}
+
+Therefore, the construction of the database is hard.
+\\
+We can use an existing corpora
+
+
+\subsection{Algebraic codebook }
+The algebraic codebook generates vectors with an algorithm
+such that there is no storage required.
+\newpage
+\subsection{Short-time Fourier transform}
+Short-time Fourier transform is the most common speech
+analysis method.
+
+\begin{itemize}
+	\item{One window gives a “snapshot” image of the signal}
+	\item{Analysis of multiple, consecutive windows gives a “movie”}
+	\item{We can analyze how signal is changing over time}
+	\item{We use a sliding window defined as $ \hat{X}_{n,k}=W_n-kX_n $} 			where each value of k gives a different snaphot of the signal
+	\item{Take DFT of each window}
+\end{itemize}
+
+Calculation of STFT:
+\begin{itemize}
+	\item{At position k, apply windowing (typically, Hamming windowing) 			to obtain segment of the signal of length N.}
+	\item{Apply the fast Fourier transform to obtain the spectrum 					$X_k(\omega)$}
+	\item{Take the logarithm of the absolute value $20\log_{10}|					X_k(\omega)|$ to obtain the logarithmic spectrum}
+	\item{Advance position by K, that is, k := k + K and return to 1.}
+	
+\end{itemize}
+
+
+\subsection{Overlap-add}
+Overlap-add is a method for windowing a signal such that we can
+modify the segments and reconstruct the modified signal.
+\\
+Algorithm:
+\begin{itemize}
+	\item{Applying windowing function $W_n$}
+	\item{Modify/process window with your-algorithm-of-choice.}
+	\item{Applying windowing function $W_n$ again}
+	\item{Add overlapping segments together to obtain output signal}
+\end{itemize}
+
+Usually we would perform a time-frequency transform on the
+windowed signal $ W_nX_n $ and perform modifications in the frequency-domain.
+
+Almost all frequency-domain processing algorithms are based
+on overlap-add.
+\\~\\
+When the reconstructed signal is equal to the original signal, then we have a perfect reconstruction.
+
+Perfect reconstruction works as long as the Princen-Bradley condition holds:
+$$ P\overset{T}{L}P_L + P\overset{T}{R}P_R = I $$
+
+
+\subsection{Entropy coding}
+It is a frequency domain coding.
+
+It reduces the bit-rate.
+
+The average bit-rate is 1.5 bits/symbol which is known as Huffman coding.
+
+
+\subsection{Voice activity detection}
+Refers to a class of methods which detect whether a sound signal contains speech or not.
+
+In a noise-free scenatio this task is trivial but that rarely happens in reality.
+
+The basic idea of the algorithm is:
+\begin{itemize}
+	\item{Calculate a set of features from the signal which are designed 			to analyze properties which differentiate speech and non-speech.}
+	\item{Merge the information from the features in a classifier, which
+		returns the likelihood that the signal is speech}
+	\item{Threshold the classifier output to determine whether the signal 		is speech or not.}
+\end{itemize}
+
+It is used as a low-complexity pre-processing method
+
+
+\subsection{Fundamental frequency estimation}
+The fundamental frequency describes a basic property of speech
+whereby its estimation is perceptually important.
+
+$F_0$ is visible and can be estimated in many different domains:
+\begin{itemize}
+	\item{Correlation-analysis in time-domain and autocorrelations show
+		peaks at the distance of the pitch lag and its multiples.}
+	\item{Magnitude spectra show a comb-structure at the fundamental
+		frequency distance.}
+	\item{Cepstra show peaks at the distance of the pitch lag and 					weak peaks also at its multiples.}
+\end{itemize}
+
+
+\subsection{Signal-to-noise ratio}
+The signal to noise ratio is a generic measure for signal distortion
+and noise.
+
+It is calculated the following way:
+\\~\\
+$ SNR_{out} = \frac{|S(z)|^2}{|S(z) - \hat{S}(z)|^2} $
+\\~\\
+The SNR does not however differentiate between different types
+of effects.
+
+
+\subsection{Speech distortion index}
+To quantify how much a method distorts the desired speech
+signal we can measure how much filtering modifies a clean signal.
+
+Speech distortion index is calculated the following way:
+\\~\\
+$ SDI=\frac{|A(z)S(z)-S(z)|^2}{|S(z)|^2} $
+
+
+\subsection{Noise reduction factor}
+we can quantify how much noise V(z) is
+attenuated by a filter A(z) using the noise reduction factor.
+\\~\\
+$ NRF = \frac{|V(z)|^2}{|A(z)V(z)|^2} $
+\\~\\
+In many cases it is more important to preserve the original
+speech signal (keep SDI low) than to maximize NRF, because
+human listeners find distortions annoying.
+\\~\\
+For a speech recognition application it might though be more
+important to obtain the best SNR even at the cost of higher SDI,
+because (or if) all noise and distortions reduce the accuracy of
+the speech recognizer equally.
+
+
+\subsection{Mel-frequency cepstral coefficients}
+Mel-Frequency Cepstral Coefficients is a representation which
+contains information of the envelope shape of speech signals.
+
+
+\begin{itemize}
+	\item{It takes the logarithm of frequency components, which 					corresponds to perceptual power-sensitivity.}
+	\item{It uses the mel-scale to mimic perceptual sensitivity for 				different frequency regions.}
+	\item{In addition, it uses DCT or FFT to decorrelate the down-sampled
+		mel-frequency spectrum.}
+	\item{Computationally simple to implement}
+\end{itemize}
+
+There are also some drawback:
+\begin{itemize}
+	\item{Poor performance in noisy conditions}
+	\item{Choice of smoothing filter is arbitrary}
+	\item{Useful for analysis only}
+\end{itemize}
+
+
+\subsection{Zero-crossing rate}
+It counts the number of times the signal crosses zero (=changes
+sign) within a window.
+
+It's very simple to implement.
+
+A low-frequency signal will cross zero only sometimes.
+
+A high-frequency signal will cross zero all the time.
+
+
+\subsection{Cepstrum}
+Taking the Fourier transform of the log-spectrum is know as cepstrum.
+
+The x-axis of the cepstrum is known as the quefrency axis and it
+is a time-domain.
+
+Filtering in the cepstrum domain is known as liftering.
+
+
+\subsection{Pulse-code modulation}
+PCM most common (high-quality) storage format for digital speech and
+audio signals.
+
+Variations of PCM:
+\begin{itemize}
+	\item{The sampling rate}
+	\item{Quantization algorithm}
+\end{itemize}
+
+\newpage
+
+\subsection{Unoform quantization}
+In uniform quantization, the signal $s_k$ is rounded to the nearest quantization
+level and the error made is independent of the signal magnitude.
+
+\subsection{Logarithmic quantization}
+In logarithmic quantization the quantization error is relative to the
+magnitude.
+
+Here for a signal $s_k$ we first take the logarithm of the magnitude
+log, then quantize round, return to the linear scale exp and restore the sign signal.
+
+\subsection{mu-law quantization}
+The $\mu$-law rule is an approximation of logarithmic quantization
+which avoids this problem.
+
+
+
+\section{Discussion}
+\subsection{Codecs}
+AMR is the most successful codec and is still widely used.
+\\~\\
+Linear prediction tries to model the spectral envelope. \\
+Line Spectral Frequencies is the most common/effective representation of linear predictors for quantisation.
+\\~\\
+Codecs also try to model the fundamental frequency. \\
+Long time prediction algorithm is used to achieve that. \\
+LTP is a vector codebook and is signal adaptive.
+\\~\\
+After we have captures the spectral envelope with linear predictor and the fundamental frequency with the long time prediction, we are left with a residual which is practically a noise. \\
+Residual coding aims to capture that noise.
+\\
+\begin{itemize}
+	\item{We first encode the gain (energy) of the noise vector}
+	\item{ we encode the fixed-length residual with an algebraic 					codebook}
+	\item{The algebraic codebook generates vectors with an algorithm
+		such that there is no storage required}
+	\item{The best quantization is found by a brute-force search, also
+		known as the analysis by synthesis method}
+\end{itemize}
+
+
+\subsection{Enhancement}
+
+\textbf{Single channel} \\~\\
+\begin{itemize}
+	\item{SPECTRAL SUBTRACTION (explained above)}
+	\item{WIENER FILTERING defined as: $ A(z)  = \frac{|X(z)|^2 - |					\hat{V}|^2}{|X(z)|^2} $}
+	\item{VOICE ACTIVATION DETECTION}
+	\item{LINEAR FILTER}
+\end{itemize}
+
+There are different types of performance measures. \\
+For example we can listen to the output in a same environment and hardware as the intended application. \\
+We can also listen to a whole range of speakers (male, female, child, etc).
+\\~\\
+We can also use more technical approaches like: signal to noise ratio, speech distortion index and noise redution factor.
+\\~\\~\\
+\textbf{Multi channel}
+\begin{itemize}
+	\item{Beanforming (EXPLAINED ABOVE)}
+	\item{Dereverberation methods, which attempt to reverse the effect of
+		room-acoustics on the desired speech signal}
+\end{itemize}
+
+
+
+\end{document}
+
+
+
+
+

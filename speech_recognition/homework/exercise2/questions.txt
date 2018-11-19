@@ -1,0 +1,49 @@
+Question 1
+
+a) The second lexicon 'w150.dict' contains only the words that appear in the
+evaluation set so, when we try to predict the evaluation set, the model has
+already seen those words and that is why is predicts them better than the 
+other dictionary where it has a lot more words. 
+
+b) The loop allows multiple words to be recognized from a single utterance,
+which means that the recognized word will have additional words after it.
+By removing the loop, we eliminated those additional words and improved the
+accuracy.
+
+Question 2
+
+b) Furthe iterations would not improve the recognition results because from the curse we can see that until hmm - 5, the error drops but on hmm - 6 it increases. So, if we use more iterations, the word-error rate would probably increase.
+
+Question 3
+
+a) The word-error rate for the female subset is 15.93
+   The word-error rate for the male subset is 10.33
+   The combined word-error rate is 12.98
+
+b) When I used male model with female set, I got word-error rate of 30.86
+   When I used female model with male set, I got word-error rate of 40.67
+   The combined word-error rate for the mixed models is 36.03
+
+   Most parametric representations of speech are highly speaker dependent and probability distributions suitable for one gender gender may not perform as well for the other gender.
+
+c) # number of gaussians
+# males
+hmm-6 = 758
+hmm-5 = 533
+hmm-4 = 383
+hmm-3 = 261
+hmm-2 = 133
+
+# females
+hmm-6 = 305
+hmm-5 = 288
+hmm-4 = 267
+hmm-3 = 224
+hmm-2 = 133
+
+# gender independent
+hmm-6 = 1058
+hmm-5 = 658
+hmm-4 = 425
+hmm-3 = 266
+hmm-2 = 133

@@ -1,0 +1,76 @@
+Question 1
+
+The number of <s> is 3 but it's being ignored because it is always assumed in the beginning of the sentence.
+
+Likelihood estimates P( in ) = 0.136
+Likelihood estimates P( a ) = 0.045
+Likelihood estimates P( </s> ) = 0.045
+
+
+
+Question 2
+
+bigrams:
+Likelihood estimates P( the|is ) = 0.25
+Likelihood estimates P( box|is ) = 0
+Likelihood estimates P( is|is ) = 0
+Likelihood estimates P( in|is ) = 0.666
+Likelihood estimates P( bag|is ) = 0
+Likelihood estimates P( </s>|is ) = 0
+Likelihood estimates P( it|is ) = 0
+Likelihood estimates P( a|is ) = 0
+Likelihood estimates P( on|is ) = 0
+
+
+trigrams:
+Likelihood estimates P( the|in the ) = 0
+Likelihood estimates P( box|in the ) = 0
+Likelihood estimates P( is|in the ) = 0
+Likelihood estimates P( in|in the ) = 0
+Likelihood estimates P( bag|in the ) = 0.5
+Likelihood estimates P( </s>|in the ) = 0
+Likelihood estimates P( it|in the ) = 0
+Likelihood estimates P( a|in the ) = 0
+Likelihood estimates P( on|in the ) = 0
+
+
+Question 3
+
+Using the interpolated absolute discounting, I got the following results:
+P( in | is ) = 0.545
+P( </s> | is ) = 0.045
+
+Using the command 'ngram -lm 2gram.lm -ppl test.txt -debug 2' we can see that the values computed by hand match the probabilities computed with the above command.
+
+
+Question 4
+
+a) The log probability for the first sentence is: -3.35094
+The log probability for the second sentence is: -2.83334
+The log probability for the third sentence is: -2.51316
+
+b) According to the model, the third sentence is the most probable with log probability of -2.51316
+
+c) An example sentence: "the box", with probability of: -1.39936
+
+
+Question 5
+
+a) 1-gram model has probability of -264042
+   2-gram model has probability of -237930
+   3-gram model has probability of -235817
+
+   The 3-gram model gave the best probability for the data.
+
+b) The proportion of out-of-vocabulary data is: 27097
+
+
+Question 6
+
+a) 1-gram morph model has probability of: -662489
+   2-gram morph model has probability of: -503229
+   3-gram morph model has probability of: -465729
+
+   The 3-gram morph model gave the best probability for the morph data.
+
+b) The proportion of out-of-vocabulary morph data is: 0

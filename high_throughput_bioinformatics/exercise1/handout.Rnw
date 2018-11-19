@@ -1,0 +1,364 @@
+\documentclass[10pt,a4paper]{article}
+
+%
+% (C) Leo Lahti 2008-2010
+% 
+% Licence: GNU General Public Licence 2, or at your option, a later
+% version
+%
+
+%
+% Tested on R281 of TKK computing center
+%
+
+
+\usepackage{amsmath,amssymb}
+\usepackage{epsf,epsfig}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+%\usepackage[T1]{fontenc}
+%\usepackage[latin1]{inputenc}
+\usepackage{t1enc} %utf8
+
+\setlength{\textwidth}{450pt}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\topmargin}{0pt}
+\addtolength{\textheight}{120pt}
+\setlength{\leftmargin}{0cm}
+\setlength{\rightmargin}{0cm}
+%\linespread{1.24} %rivivali 1.5
+\setlength{\parindent}{0mm}
+\setlength{\parskip}{2mm}
+\setlength{\voffset}{-1in} 
+%\addtolength{\textheight}{40pt}
+
+\title{Introduction to R and BioConductor}
+\author{Sini Rautio (Originally by Leo Lahti), edited by Viivi Halla-aho}
+\date{\today{}}
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+\maketitle
+
+%\begin{abstract}
+%Short and simplistic overview of R/BioConductor with basic hands-on
+%exercises. For a full description of R, see www.r-project.org.
+%\end{abstract}
+
+\section{Starting with R/BioConductor}
+
+\subsubsection*{Why use R?}
+
+See \url{http://monkeysuncle.stanford.edu/?p=367}
+
+\subsubsection*{Introductory material}
+
+R reference card: a useful and brief 4-page intro: 
+\url{http://cran.r-project.org/doc/contrib/Short-refcard.pdf}
+
+Recommended book with example source codes online:
+\url{https://www.bioconductor.org/help/publications/books/bioinformatics-and-computational-biology-solutions/}
+
+The project pages \url{http://www.r-project.org} and \url{http://www.bioconductor.org} provide
+extensive resources.
+
+\subsubsection*{R-Matlab dictionary}
+
+If you already know Matlab this may help:\\
+\url{http://www.math.umaine.edu/\~hiebeler/comp/matlabR.pdf}
+
+\subsubsection*{Search engine for R}
+
+Seeking R-related information from www is challenging. This solves the
+problem:\\
+\url{http://www.rseek.org/}
+
+
+\subsubsection*{Graphics}
+
+R has excellent graphics capabilities with publication quality. See
+graphics galleries for {\it examples with source code} (!):\\
+\url{https://www.r-graph-gallery.com}
+
+
+\subsubsection*{R and \LaTeX}
+
+Automated \LaTeX document generation with parameters and plots:\\
+\url{https://stat.ethz.ch/R-manual/R-devel/library/utils/doc/Sweave.pdf}
+
+This document was produced with Sweave. The source (.Rnw) is provided
+at course home page, and can be converted into \LaTeX code in R with
+the command 'Sweave('handout.Rnw')'.
+
+
+\subsubsection*{Graphical User Interfaces (GUIs) for R?}
+
+Miscellaneous GUIs for R, in case you need one:
+
+\begin{itemize}
+\item RStudio (Recommended)
+\item Tinn-R
+\item R Commander (basic-statistics GUI)
+\item Rattle (data mining)
+\item RKWard (KDE libraries)
+\item JGR (universal Java GUI)
+\item PMG
+\end{itemize}
+
+\subsection{Installing packages in Aalto computer system}
+
+If you prefer to use your own laptop, you have to install R (\url{https://www.r-project.org}) and BioConductor (\url{https://bioconductor.org/install/}). 
+
+R can be started from command line by typing 'R'.
+
+It is often necessary to install new packages with specific
+functionality. In Aalto computer system, the quickest option is to
+install to your home directory (if you have enough disk space). For
+example the following commands can be used to install packages within
+R:
+
+<<echo=TRUE, eval=FALSE>>= 
+install.packages("MASS")
+@
+
+or from source tarball
+<<echo=TRUE, eval=FALSE>>=
+install.packages("mypackage.tar.gz",repos=NULL)
+@
+
+To get more information on any specific named function:
+<<echo=TRUE, eval=FALSE>>=
+?install.packages
+@
+{\color{red} \textbf{If you are using the Aalto Windows machines, there will be no need to install packages needed in this course yourself as we have requested Aalto IT to do the installations.}}
+
+\section{Hands-on exercises}
+
+<<fig=FALSE,pdf=false,echo=TRUE,eval=FALSE>>= 
+print("Hello, world! :)")  
+@
+
+\subsection{Numbers and vectors}
+
+Set up a vector called x
+<<fig=FALSE,pdf=false,echo=TRUE,eval=FALSE>>= 
+x <- c(1,1.3,5,4.8,6)
+length(x)
+x[2]
+@
+
+Calculate a mean of a vector x
+<<fig=FALSE,pdf=false,echo=TRUE,eval=FALSE>>= 
+mean(x)
+@
+
+Different types of vector
+<<fig=FALSE,pdf=false,echo=TRUE,eval=FALSE>>= 
+a <- c(1,2,5.3,6,-2,4) # numeric vector
+b <- c("one","two","three") # character vector
+c <- c(TRUE,TRUE,TRUE,FALSE,TRUE,FALSE) #logical vector
+@
+
+
+Make a sequence
+<<fig=FALSE,pdf=false,echo=TRUE,eval=FALSE>>= 
+s<-seq(-5, 5, by=.2)
+s
+@
+
+Generate 5 x 4 numeric matrix 
+<<fig=FALSE,pdf=false,echo=TRUE,eval=FALSE>>= 
+y<-matrix(1:20, nrow=5,ncol=4)
+y
+y[,4]
+y[3,4]
+@
+
+\subsection{Random samples and plotting}
+
+Random samples from normal distribution and a histogram:
+<<fig=FALSE,pdf=false,echo=TRUE>>= 
+set.seed(123)  # set random seed
+random.data <- rnorm(1000,mean=0,sd=1)
+# Plot historam of the data
+hist(random.data)
+@
+
+(Note: {\it rnorm} generates random samples from normal
+distribution. If you don't set random seed ({\it set.seed}), the code
+will draw different random data at each run. By setting random seed,
+you can retrieve the same random data later on, if necessary. This is
+standard procedure which allows exact reproducibility of the results.)
+
+
+Define title and axes:
+<<fig=TRUE,pdf=TRUE,echo=TRUE>>= 
+hist(random.data,main="Random histogram",xlab="X values",ylab="Count")
+@
+
+See histogram function in more detail: type '?hist' or
+'help(hist)'. 
+
+\subsubsection*{Example data set}
+
+Investigate example data:
+
+<<echo=TRUE,results=hide>>= 
+# Look at the data
+iris
+dim(iris)
+dimnames(iris)
+summary(iris)
+@
+
+Boxplot of the first four columns.
+
+<<fig=FALSE,pdf=false,echo=TRUE>>= 
+# Boxplot
+boxplot(iris[,1:4])
+@
+
+Compare sepal length between two flower species with t-test:
+
+<<fig=FALSE,pdf=TRUE,echo=TRUE>>= 
+setosaRows = (iris[,"Species"]=="setosa")
+virginicaRows = (iris[,"Species"]=="virginica")
+x = iris[setosaRows,"Sepal.Length"]
+y = iris[virginicaRows,"Sepal.Length"]
+t.test(x,y)
+@
+
+\subsubsection*{Principal component analysis (PCA)}
+
+Investigate variable contents with 'names', call subvariables with
+'\$' or '@':
+
+<<fig=FALSE,pdf=false,echo=TRUE>>= 
+# Principal components analysis
+iris.pca <- prcomp(iris[,1:4])
+names(iris.pca) # check result contents
+
+@
+
+Plot variance along each principal component
+<<fig=FALSE,pdf=false,echo=TRUE>>= 
+barplot(iris.pca$sdev)
+@
+
+Plot first principal component
+<<fig=FALSE,pdf=false,echo=TRUE>>= 
+barplot(iris.pca$rotation[,"PC1"],main="PCA")
+@
+
+Plot data for two random features, and then along
+the most important principal components:
+
+<<fig=FALSE,pdf=false,echo=TRUE>>= 
+par(mfrow=c(2,1))
+plot(iris[, 1:2], main="Two of the original features")
+plot(iris.pca$x[, 1:2], main="Two PCA features")
+@
+
+
+
+\subsubsection*{Plots with different colors}
+
+<<fig=FALSE,pdf=false,echo=TRUE>>= 
+plot(iris[iris[,"Species"] == "setosa",1:2],col="red",xlim=range(iris[,1:2]),ylim=range(iris[,1:2]))
+points(iris[iris[,"Species"] == "virginica",1:2],col="blue")
+@
+
+
+Order and plot correlations between 20 random samples using first 4
+features:
+
+<<fig=FALSE,pdf=false,echo=TRUE>>= 
+random.samples <- sample(nrow(iris),20)
+flower.correlations <- cor(t(iris[random.samples,1:4]))
+heatmap(flower.correlations, scale = "none")
+@
+
+
+\subsubsection*{Produce PDF}
+
+This will save 'myFigure.pdf' in your working directory (check with
+'getwd()')
+
+<<fig=FALSE,results=hide,echo=TRUE>>= 
+pdf("myFigure.pdf")
+heatmap(flower.correlations, scale="none", col = grey(seq(0,1,length=100)))
+dev.off()
+@
+
+Remember to close the output stream with 'dev.off()'!
+
+
+\subsubsection*{K-means}
+
+Based on the plot it seems that there are two groups of flowers. Use
+K-means to detect these clusters. It turns out that the clusters are
+explainable by flower species:
+
+<<fig=FALSE,results=hide,echo=TRUE>>= 
+km <- kmeans(iris[random.samples,1:4], centers = 2)
+names(km)
+iris[names(which(km$cluster == 1)),"Species"]
+iris[names(which(km$cluster == 2)),"Species"]
+@
+
+\subsubsection*{Hierarchical clustering}
+
+
+<<fig=FALSE,pdf=false,echo=TRUE>>= 
+d <- dist(iris[,1:4])           # distance matrix
+hc <- hclust(d, method = "ave") # hierarchical clustering
+plot(hc, hang = -1)             # plot
+@
+
+Check source code of the function with 'hclust'.
+
+\section{FAQ}
+
+\subsubsection*{How to create multidimensional matrices?} 
+
+<<fig=FALSE,pdf=false,echo=TRUE, eval=FALSE>>= 
+a <- array(0,dim=c(10,4,2))
+@
+
+\subsubsection*{How to run R scripts from source file?}
+
+<<fig=FALSE,pdf=false,echo=TRUE,eval=FALSE>>= 
+source("myscript.R")
+@
+
+\subsubsection*{How to run R scripts on command line (batch mode)?} 
+
+Something along these lines:\\
+\#!/bin/sh\\
+/your.R.path/R CMD BATCH --no-save myscript.R myscript.Rlog
+
+
+\subsubsection*{Why my figure does not pop up?} 
+
+Typically the previous output stream has been {\it opened} but {\it
+not closed}. Close output stream(s) using dev.off(), this may need to
+be applied several times.
+
+\section{Advanced tips, tricks \& hacks} 
+
+If you already know R, check the following packages:
+
+\begin{itemize}
+\item Matrix (improved matrix operations capabilities)
+\item plyr (efficient data manipulation)
+\item ggplot2 (high-quality graphics tools)
+\item tikzdevice (R and \LaTeX graphics combined)
+\item \url{http://cran.r-project.org/web/views/HighPerformanceComputing.html} (parallel computing etc.)
+\end{itemize}
+
+
+%system("latex handout.tex && dvipdf handout && gv handout.pdf &")
+
+\end{document}
